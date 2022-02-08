@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
 public class FCMQueueConfiguration {
 
@@ -18,7 +21,11 @@ public class FCMQueueConfiguration {
 
     @Bean(name = "fcmQueue")
     public Queue queue() {
-        return new Queue(this.rabbitMQConfig.getFcmQueue().getQueue(), true);
+        Map<String, Object> args = new HashMap<>();
+        // TTL 40 seconds
+        args.put("x-message-ttl", 40 * 1000);
+
+        return new Queue(this.rabbitMQConfig.getFcmQueue().getQueue(), true, false, false, args);
     }
 
     @Bean(name = "fcmExchange")
