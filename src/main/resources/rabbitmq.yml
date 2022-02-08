@@ -1,0 +1,15 @@
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+
+  email-queue:
+    exchange: email.exchange
+    queue: email.queue
+    routingKey: email.routingkey
+
+  fcm-queue:
+    exchange: fcm.exchange
+    queue: fcm.queue
+    routingKey: fcm.routingkey
